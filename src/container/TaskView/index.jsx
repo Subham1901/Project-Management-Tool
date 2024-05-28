@@ -16,7 +16,10 @@ const TaskView = () => {
       dispatch(getATask(URLParams?.id));
     }
   }, [id]);
-  console.log();
+
+  function deleteTask(id) {
+    // dispatch(deleteATask(id));
+  }
 
   return (
     <div className="bg-gray-100 p-4 rounded-lg shadow-md">
@@ -35,7 +38,7 @@ const TaskView = () => {
               <span>
                 <FaRegCalendarAlt className="mr-1 w-5 h-5 text-blue-950" />
               </span>
-              {moment(taskView?.dueDate, "DD/MM/YYYY").format("Do MMM")}
+              {moment(taskView?.dueDate).format("Do MMM")}
             </p>
           </div>
           <div className="ml-14">
@@ -49,12 +52,12 @@ const TaskView = () => {
           </div>
         </div>
       </div>
-      <div class="border-t border-gray-300 mt-1"></div>
+      <div className="border-t border-gray-300 mt-1"></div>
 
       <div className="flex flex-wrap mt-5 items-center justify-between">
         <h2 className="text-3xl font-semibold mb-4">Assignee Details</h2>
-        <div class="h-10 w-10 rounded-full bg-blue-950 text-white flex items-center justify-center">
-          <span class="text-lg font-semibold">
+        <div className="h-10 w-10 rounded-full bg-blue-950 text-white flex items-center justify-center">
+          <span className="text-lg font-semibold">
             {taskView?.assignedTo?.firstName[0]?.toUpperCase()}
             {taskView?.assignedTo?.lastName[0]?.toUpperCase()}
           </span>
@@ -72,6 +75,18 @@ const TaskView = () => {
       </div>
       <div>
         <span className="font-bold">Email:</span> {taskView?.assignedTo?.email}
+      </div>
+      <div className="border-t border-gray-300 mt-1"></div>
+      <div className="mt-5 flex items-center justify-between">
+        <button className="border-none bg-slate-900 rounded-md p-2 text-white">
+          Edit Task
+        </button>
+        <button
+          onClick={() => deleteTask(taskView?._id)}
+          className="border-none bg-red-900 rounded-md p-2 text-white"
+        >
+          Delete Task
+        </button>
       </div>
     </div>
   );

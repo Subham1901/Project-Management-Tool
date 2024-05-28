@@ -6,4 +6,8 @@ export const store = configureStore({
     tasks: taskSlice.reducer,
     users: userSlice.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });

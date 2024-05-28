@@ -29,8 +29,6 @@ const Dashboard = () => {
     dispatch(getAllTasks());
   }, []);
 
-  console.log(data);
-
   return (
     <div>
       <div className="shadow-md bg-white p-2">
@@ -61,7 +59,13 @@ const Dashboard = () => {
         isOpen={isAddTask || isAddUser}
         onClose={onClose}
         title={isAddTask ? "Add task" : "Add user"}
-        children={isAddTask ? <CreateTaskForm /> : <CreateUser />}
+        children={
+          isAddTask ? (
+            <CreateTaskForm onClose={onClose} />
+          ) : (
+            <CreateUser onClose={onClose} />
+          )
+        }
       />
       <div className="p-2 bg-white mt-3">
         <PrimeReactProvider>

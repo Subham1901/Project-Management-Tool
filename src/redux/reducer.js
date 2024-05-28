@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createATask, getATask, getAllTasks } from "./TaskService";
+import { createATask, deleteTask, getATask, getAllTasks } from "./TaskService";
 import { addAUser, getAllUsers, getUsersDropDownList } from "./UserServices";
 
 export const taskSlice = createSlice({
@@ -20,6 +20,7 @@ export const taskSlice = createSlice({
       state.data = action.payload;
     });
     builder.addCase(getAllTasks.rejected, (state, action) => {
+      state.isLoading = false;
       state.isError = true;
     });
     builder.addCase(createATask.pending, (state, action) => {
@@ -40,6 +41,16 @@ export const taskSlice = createSlice({
     });
     builder.addCase(getATask.rejected, (state, action) => {
       state.isError = true;
+    });
+    builder.addCase(deleteTask.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(deleteTask.fulfilled, (state, action) => {
+      state.isLoading = false;
+    });
+    builder.addCase(deleteTask.rejected, (state, action) => {
+      state.isError = true;
+      state.isLoading = false;
     });
   },
 });
