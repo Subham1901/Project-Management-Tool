@@ -23,9 +23,9 @@ const DataTablePrime = ({ colums, data }) => {
       onSelectionChange={(e) => navigate(`${e?.value?._id}`)}
     >
       {colums &&
-        colums.map((data) => (
+        colums.map((data, index) => (
           <Column
-            onCli
+            key={data?.field}
             field={data?.field}
             header={data?.header}
             sortable

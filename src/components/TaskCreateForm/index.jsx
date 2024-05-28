@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsersDropDownList } from "../../redux/UserServices";
 import { createATask } from "../../redux/TaskService";
-
-const CreateTaskForm = () => {
+import DatePicker from "react-datepicker";
+const CreateTaskForm = ({ onClose }) => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state?.users?.userDropDownList);
   // State for form fields
@@ -11,7 +11,7 @@ const CreateTaskForm = () => {
   const [taskDescription, setTaskDescription] = useState("");
   const [assignedTo, setAssignedTo] = useState("");
   const [taskType, setTaskType] = useState("");
-  const [dueDate, setDueDate] = useState("");
+  const [dueDate, setDueDate] = useState(new Date());
 
   // Function to handle form submission
   const handleSubmit = (e) => {
@@ -24,7 +24,7 @@ const CreateTaskForm = () => {
         assignedTo,
         taskType,
         status: "INPROGRESS",
-      })
+      }),
     );
     // Logic to handle form submission (e.g., sending data to server)
     console.log("Form submitted:", {
@@ -35,6 +35,7 @@ const CreateTaskForm = () => {
       dueDate,
     });
     // Clear form fields after submission
+    onClose();
     setTaskName("");
     setTaskDescription("");
     setAssignedTo("");
@@ -123,12 +124,12 @@ const CreateTaskForm = () => {
             >
               Due Date
             </label>
-            <input
-              type="date"
-              id="dueDate"
+
+            <DatePicker
+              minDate={new Date()}
+              selected={dueDate}
               className="mt-1 p-2 w-full border-2 border-black border-solid rounded-md"
-              value={dueDate}
-              onChange={(e) => setDueDate(e.target.value)}
+              onChange={(date) => setDueDate(date)}
             />
           </div>
           <button

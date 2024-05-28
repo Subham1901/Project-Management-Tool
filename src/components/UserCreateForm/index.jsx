@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addAUser } from "../../redux/UserServices";
 
-const CreateUser = () => {
+const CreateUser = ({ onClose }) => {
   const dispatch = useDispatch();
   // State for form fields
   const [firstName, setFirstName] = useState("");
@@ -18,6 +18,7 @@ const CreateUser = () => {
     // Logic to handle form submission (e.g., sending data to server)
     console.log("Form submitted:", { firstName, lastName, email, designation });
     // Clear form fields after submission
+    onClose();
     setFirstName("");
     setLastName("");
     setEmail("");
