@@ -3,7 +3,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Navigate, useNavigate } from "react-router-dom";
 
-const DataTablePrime = ({ colums, data }) => {
+const DataTablePrime = ({ colums, data, source }) => {
   const navigate = useNavigate();
   function wrapWord(rowData) {
     return rowData?.description?.substr(0, 20) + "...";
@@ -19,8 +19,10 @@ const DataTablePrime = ({ colums, data }) => {
       emptyMessage="No Data Found"
       value={data}
       removableSort
-      selectionMode="single"
-      onSelectionChange={(e) => navigate(`${e?.value?._id}`)}
+      selectionMode={source !== "user" ? "single" : null}
+      onSelectionChange={(e) =>
+        source !== "user" ? navigate(`${e?.value?._id}`) : null
+      }
     >
       {colums &&
         colums.map((data, index) => (

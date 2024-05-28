@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsersDropDownList } from "../../redux/UserServices";
-import { createATask } from "../../redux/TaskService";
+import { createATask, getAllTasks } from "../../redux/TaskService";
 import DatePicker from "react-datepicker";
 const CreateTaskForm = ({ onClose }) => {
   const dispatch = useDispatch();
@@ -24,8 +24,9 @@ const CreateTaskForm = ({ onClose }) => {
         assignedTo,
         taskType,
         status: "INPROGRESS",
-      }),
+      })
     );
+
     // Logic to handle form submission (e.g., sending data to server)
     console.log("Form submitted:", {
       taskName,

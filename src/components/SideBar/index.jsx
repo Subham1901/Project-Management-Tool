@@ -29,7 +29,7 @@ const SideBar = ({ isSidebarOpen, toggleSidebar }) => {
         <ul className="flex flex-col w-full">
           <li className="my-px">
             <Link to={"/dashboard/task"}>
-              <a className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100">
+              <a className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700">
                 <span className="flex items-center justify-center text-lg text-gray-400">
                   <svg
                     fill="none"

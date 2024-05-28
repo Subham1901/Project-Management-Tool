@@ -1,5 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createATask, deleteTask, getATask, getAllTasks } from "./TaskService";
+import {
+  createATask,
+  deleteATask,
+  editATask,
+  getATask,
+  getAllTasks,
+} from "./TaskService";
 import { addAUser, getAllUsers, getUsersDropDownList } from "./UserServices";
 
 export const taskSlice = createSlice({
@@ -28,6 +34,7 @@ export const taskSlice = createSlice({
     });
     builder.addCase(createATask.fulfilled, (state, action) => {
       state.isLoading = false;
+      state.data.push(action.payload);
     });
     builder.addCase(createATask.rejected, (state, action) => {
       state.isError = true;
@@ -42,13 +49,23 @@ export const taskSlice = createSlice({
     builder.addCase(getATask.rejected, (state, action) => {
       state.isError = true;
     });
-    builder.addCase(deleteTask.pending, (state, action) => {
+    builder.addCase(deleteATask.pending, (state, action) => {
       state.isLoading = true;
     });
-    builder.addCase(deleteTask.fulfilled, (state, action) => {
+    builder.addCase(deleteATask.fulfilled, (state, action) => {
       state.isLoading = false;
     });
-    builder.addCase(deleteTask.rejected, (state, action) => {
+    builder.addCase(deleteATask.rejected, (state, action) => {
+      state.isError = true;
+      state.isLoading = false;
+    });
+    builder.addCase(editATask.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(editATask.fulfilled, (state, action) => {
+      state.isLoading = false;
+    });
+    builder.addCase(editATask.rejected, (state, action) => {
       state.isError = true;
       state.isLoading = false;
     });

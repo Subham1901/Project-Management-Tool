@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { getATask } from "../../redux/TaskService";
+import { useNavigate, useParams } from "react-router-dom";
+import { deleteATask, getATask } from "../../redux/TaskService";
 import moment from "moment";
 import { FaCode } from "react-icons/fa6";
 import { FaRegCalendarAlt } from "react-icons/fa";
+import Modal from "../../components/Modal";
+import EditTaskForm from "../../components/EditTaskForm";
 const TaskView = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const URLParams = useParams();
+  const [isOpen, setIsOpen] = useState(false);
   const [id, setId] = useState(URLParams.id);
   const { taskView } = useSelector((state) => state.tasks);
 
@@ -18,7 +22,12 @@ const TaskView = () => {
   }, [id]);
 
   function deleteTask(id) {
-    // dispatch(deleteATask(id));
+    dispatch(deleteATask(id));
+    navigate("/");
+  }
+
+  function onClose() {
+    setIsOpen(false);
   }
 
   return (
@@ -78,7 +87,10 @@ const TaskView = () => {
       </div>
       <div className="border-t border-gray-300 mt-1"></div>
       <div className="mt-5 flex items-center justify-between">
-        <button className="border-none bg-slate-900 rounded-md p-2 text-white">
+        <button
+          onClick={() => setIsOpen(true)}
+          className="border-none bg-slate-900 rounded-md p-2 text-white"
+        >
           Edit Task
         </button>
         <button
@@ -88,6 +100,12 @@ const TaskView = () => {
           Delete Task
         </button>
       </div>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        title={"Edit task"}
+        children={<EditTaskForm onClose={onClose} taskData={taskView} />}
+      />
     </div>
   );
 };

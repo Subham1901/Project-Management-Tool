@@ -13,7 +13,7 @@ const Users = () => {
 
   return (
     <div>
-      <DataTablePrime data={data} colums={userColums} />
+      <DataTablePrime data={data} colums={userColums} source={"user"} />
     </div>
   );
 };
